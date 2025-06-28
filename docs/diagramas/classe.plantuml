@@ -1,0 +1,225 @@
+@startuml diagrama_classe
+
+class Ativo {
+  + id_ativo: int
+  + nome: String
+  + marca: String
+  + modelo: String
+  + nr_serie: String
+  + dt_aquisicao: Date
+  + vl_aquisicao: double
+  + status: String
+  --
+  + adicionarAtivo(ativo: Ativo): void
+  + alterarAtivo(ativo: Ativo): void
+  + atualizarStatusAtivo(id: int): void
+  + excluirAtivo(id: int): void
+  + consultarAtivo(id: int): Ativo
+  + listarAtivos(): List<Ativo>
+}
+
+class Licenca {
+  + id: int
+  + nome: String
+  + dt_aquisicao: Date
+  + vl_aquisicao: double
+  + dt_inicio_vigencia: Date
+  + dt_fim_vigencia: Date
+  + status: String
+  --
+  + adicionarLicenca(licenca: Licenca): void
+  + alterarLicenca(licenca: Licenca): void
+  + atualizarStatusLicenca(id: int): void
+  + excluirLicenca(id: int): void
+  + consultarLicenca(id: int): Licenca
+  + listarLicencas(): List<Licenca>
+}
+
+
+class Categoria {
+  + id: int
+  + nome: String
+  + observacao: String
+  + status: String
+  --
+  + adicionarCategoria(categoria: Categoria): void
+  + alterarCategoria(categoria: Categoria): void
+  + atualizarStatusCategoria(id: int): void
+  + excluirCategoria(id: int): void
+  + consultarCategoria(id: int): Categoria
+  + listarCategorias(): List<Categoria>
+}
+
+class Garantia {
+  + id: int
+  + descricao: String
+  + dt_inicio: Date
+  + dt_fim: Date
+  + observacao: String
+  + status: String
+  --
+  + adicionarGarantia(garantia: Garantia): void
+  + alterarGarantia(garantia: Garantia): void
+  + atualizarStatusGarantia(id: int): void
+  + excluirGarantia(id: int): void
+  + consultarGarantia(id: int): void
+  + listarGarantias(): List<Garantia>
+}
+
+class Fornecedor {
+  + id: int
+  + razao_social: String
+  + nome_fantasia: String
+  + nr_cnpj: String
+  + nr_telefone: String
+  + ds_email: String
+  + ds_endereco: String
+  + nr_endereco: int
+  + ds_bairro: String
+  + ds_municipio: String
+  + sg_estado: String
+  + status: String
+  --
+  + adicionarFornecedor(fornecedor: Fornecedor): void
+  + alterarFornecedor(fornecedor: Fornecedor): void
+  + atualizarStatusFornecedor(id: int): void
+  + excluirFornecedor(id: int): void
+  + consultarFornecedor(id: int): Fornecedor
+  + listarFornecedores(): List<Fornecedor>
+}
+
+class Prestador {
+  + id: int
+  + razao_social: String
+  + nome_fantasia: String
+  + nr_cnpj: String
+  + nr_telefone: String
+  + ds_email: String
+  + ds_endereco: String
+  + nr_endereco: int
+  + ds_bairro: String
+  + ds_municipio: String
+  + sg_estado: String
+  + status: String
+  --
+  + adicionarPrestador(prestador: Prestador): void
+  + alterarPrestador(prestador: Prestador): void
+  + atualizarStatusPrestador(id: int): void
+  + excluirPrestador(id: int): void
+  + consultarPrestador(id: int): Prestador
+  + listarPrestadores(): List<Prestador>
+}
+
+class Manutencao {
+  + id: int
+  + tipo: String
+  + observacao: String
+  + dt_inicio: Date
+  + dt_fim: Date
+  + vl_total: double
+  + status: String
+  --
+  + agendarManutencao(manutencao: Manutencao): void
+  + alterarDadosManutencao(manutencao: Manutencao): void
+  + atualizarStatusManutencao(id: int, status: String): void
+  + excluidManutencao(id: int): void
+  + consultarManutencao(id: int): Manutencao
+  + listarManutencoes(): List<Manutencao>
+}
+
+class Departamento {
+  + id: int
+  + nome: String
+  + observacao: String
+  + status: String
+  --
+  + adicionarDepartamento(departamento: Departamento): void
+  + alterarDepartamento(departamento: Departamento): void
+  + atualziarStatusDepartamento(id: int): void
+  + excluirDepartamento(id: int): void
+  + consultarDepartamento(id: int): Departamento
+  + listarDepartamentos(): List<Departamento>
+}
+
+class Setor {
+  + id: int
+  + nome: String
+  + observacao: String
+  + status: String
+  --
+  + adicionarSetor(setor: Setor): void
+  + alterarSetor(setor: Setor): void
+  + atualziarStatusSetor(id: int): void
+  + excluirSetor(id: int): void
+  + consultarSetor(id: int): Setor
+  + listarSetores(): List<Setor>
+}
+
+class Empresa {
+  + id: int
+  + razao_social: String
+  + nome_fantasia: String
+  + nr_cnpj: String
+  + nr_telefone: String
+  + ds_email: String
+  + ds_endereco: String
+  + nr_endereco: int
+  + ds_bairro: String
+  + ds_municipio: String
+  + sg_estado: String
+  + observacao: String
+  + status: String
+  --
+  + adicionarEmpresa(empresa: Empresa): void
+  + alterarEmpresa(empresa: Empresa): void
+  + atualizarStatusEmpresa(id: int): void
+  + excluirEmpresa(id: int): void
+  + consultarEmpresa(id: int): Empresa
+  + listarEmpresas(): list<Empresa>
+}
+
+class Usuario {
+  + id: int
+  + login: String
+  + senha: String
+  + nivel_acesso: String
+  + observacao: String
+  + status: String
+  --
+  + adicionarUsuario(usuario: Usuario): void
+  + alterarUsuario(usuario: Usuario): void
+  + atualizarStatusUsuario(id: int): void
+  + excluirUsuario(id: int): void
+  + consultarUsuario(id: int): Usuario
+  + listarUsuarios(): list<Usuario>
+  + autenticarUsuario(login: String, senha: String): boolean
+}
+
+class Pessoa {
+  + id: int
+  + nome: String
+  + nr_cpf: String
+  + dt_nascimento: String
+  + sexo: String
+  + nr_telefone: String
+  + ds_email: String
+  --
+  + adicionarPessoa(pessoa: Pessoa): void
+  + alterarPessoa(pessoa: Pessoa): void
+  + excluirPessoa(id: int): void
+  + consultarPessoa(id: int): Pessoa
+  + listarPessoas(): list<Pessoa>
+}
+
+Ativo "1..*" o-- "1" Categoria : possui
+Ativo "1..*" o-- "1" Fornecedor : fornecido por
+Ativo "1" o-- "0..1" Garantia : possui
+Ativo "1" o-- "*" Manutencao : registra
+Ativo "1..*" o-- "1" Departamento : alocado em
+Departamento "1..*" o-- "1" Setor : alocado em
+Setor "1..*" o-- "1" Empresa : alocado em
+Manutencao "1" o-- "1" Prestador : realizada por
+Licenca "1..*" o-- "1" Fornecedor : fornecida por
+Usuario "1" o-- "1" Pessoa : é
+
+@enduml

@@ -1,0 +1,20 @@
+@startuml diagrama_atividade_cadastro_ativo
+start
+
+:Acessar a função "Cadastro de Ativo";
+:Preencher dados obrigatórios do Ativo;
+:Selecionar Categoria;
+:Selecionar Departamento;
+:Selecionar Fornecedor (opcional);
+:Selecionar Garantia;
+:Validar dados;
+
+repeat
+  if (Dados válidos?) then (Sim)
+    :Salvar Ativo no sistema;
+    :Exibir mensagem de sucesso;
+    stop
+  else (Não)
+    :Fazer correções;
+
+@enduml

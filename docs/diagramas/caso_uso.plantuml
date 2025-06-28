@@ -1,0 +1,46 @@
+@startuml diagrama_caso_uso
+
+left to right direction
+actor Administrador
+actor Funcionario as Funcionário
+
+rectangle "Sistema de Monitoramento de Ativos" {
+  usecase (Gerenciar Ativos)
+  usecase (Gerenciar Licenças)
+  usecase (Gerenciar Categorias)
+  usecase (Gerenciar Fornecedores)
+  usecase (Gerenciar Prestadores de Serviço)
+  usecase (Gerenciar Manutenções)
+  usecase (Gerenciar Departamentos)
+  usecase (Gerenciar Setores)
+  usecase (Gerenciar Empresas)
+  usecase (Gerenciar Usuários)
+  usecase (Gerenciar Pessoas)
+  usecase (Consultar Relatórios)
+  usecase (Autenticar Usuário)
+}
+
+Administrador -- (Gerenciar Ativos)
+Administrador -- (Gerenciar Licenças)
+Administrador -- (Gerenciar Categorias)
+Administrador -- (Gerenciar Fornecedores)
+Administrador -- (Gerenciar Prestadores de Serviço)
+Administrador -- (Gerenciar Manutenções)
+Administrador -- (Gerenciar Departamentos)
+Administrador -- (Gerenciar Setores)
+Administrador -- (Gerenciar Empresas)
+Administrador -- (Gerenciar Usuários)
+Administrador -- (Gerenciar Pessoas)
+Administrador -- (Consultar Relatórios)
+Administrador -- (Autenticar Usuário)
+
+Funcionário -- (Gerenciar Ativos)
+Funcionário -- (Gerenciar Licenças)
+Funcionário -- (Gerenciar Manutenções)
+Funcionário -- (Consultar Relatórios)
+Funcionário -- (Autenticar Usuário)
+
+(Gerenciar Ativos) .> (Consultar Relatórios) : <<include>>
+(Gerenciar Manutenções) .> (Consultar Relatórios) : <<include>>
+
+@enduml
