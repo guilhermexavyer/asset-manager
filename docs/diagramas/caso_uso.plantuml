@@ -1,119 +1,106 @@
-@startuml caso_uso
+@startuml caso_uso_completo
 
 left to right direction
-actor UsuárioAdmnistrador
-actor UsuárioPadrão
+
+actor "Administrador" as Admin
+actor "Usuário Padrão" as User
 
 rectangle "Sistema de Monitoramento de Ativos" {
-  usecase (Autenticar Usuário) as UC_AUTENTICAR
 
+  ' Autenticação
+  usecase (Autenticar Usuário) as UC1
+
+  ' Gestão de Ativos
   package "Gestão de Ativos" {
-    usecase (Cadastrar Ativo) as UC_CADASTRAR_ATIVO
-    usecase (Consultar Ativo) as UC_CONSULTAR_ATIVO
-    usecase (Atualizar Ativo) as UC_ATUALIZAR_ATIVO
-    usecase (Excluir Ativo) as UC_EXCLUIR_ATIVO
-    usecase (Associar Ativo a Departamento) as UC_ASSOCIAR_ATIVO_DEP
+    usecase (Cadastrar Ativo) as UC2
+    usecase (Consultar Ativo) as UC3
+    usecase (Editar Ativo) as UC4
+    usecase (Excluir Ativo) as UC5
+
+    ' Casos incluídos no cadastro de ativo
+    usecase (Selecionar Categoria) as UC18
+    usecase (Selecionar Departamento) as UC19
+    usecase (Selecionar Fornecedor) as UC20
+    usecase (Selecionar Vendedor) as UC21
   }
 
-  package "Gestão de Licenças" {
-    usecase (Cadastrar Licença) as UC_CADASTRAR_LICENCA
-    usecase (Consultar Licença) as UC_CONSULTAR_LICENCA
-    usecase (Atualizar Licença) as UC_ATUALIZAR_LICENCA
-    usecase (Excluir Licença) as UC_EXCLUIR_LICENCA
+  ' Gestão de Categorias
+  package "Gestão de Categorias" {
+    usecase (Cadastrar Categoria) as UC6
+    usecase (Consultar Categoria) as UC7
   }
 
-  package "Gestão de Manutenções" {
-    usecase (Agendar Manutenção) as UC_AGENDAR_MANUTENCAO
-    usecase (Registrar Conclusão Manutenção) as UC_CONCLUIR_MANUTENCAO
-    usecase (Consultar Histórico Manutenção) as UC_CONSULTAR_HIST_MANUTENCAO
-    usecase (Atualizar Status Manutenção) as UC_ATUALIZAR_STATUS_MANUTENCAO
+  ' Gestão de Fornecedores
+  package "Gestão de Fornecedores" {
+    usecase (Cadastrar Fornecedor) as UC8
+    usecase (Consultar Fornecedor) as UC9
   }
 
-  package "Gestão de Cadastros Básicos" {
-    usecase (Gerenciar Categorias) as UC_GERENCIAR_CATEGORIAS
-    usecase (Gerenciar Fornecedores) as UC_GERENCIAR_FORNECEDORES
-    usecase (Gerenciar Prestadores de Serviço) as UC_GERENCIAR_PRESTADORES
-    usecase (Gerenciar Departamentos) as UC_GERENCIAR_DEPARTAMENTOS
-    usecase (Gerenciar Setores) as UC_GERENCIAR_SETORES
-    usecase (Gerenciar Empresas) as UC_GERENCIAR_EMPRESAS
-    usecase (Gerenciar Usuários) as UC_GERENCIAR_USUARIOS
-    usecase (Gerenciar Pessoas) as UC_GERENCIAR_PESSOAS
+  ' Gestão de Departamentos
+  package "Gestão de Departamentos" {
+    usecase (Cadastrar Departamento) as UC10
+    usecase (Consultar Departamento) as UC11
   }
 
-  package "Relatórios e Consultas" {
-    usecase (Gerar Relatório de Ativos) as UC_REL_ATIVOS
-    usecase (Gerar Relatório de Manutenções) as UC_REL_MANUTENCOES
-    usecase (Gerar Relatório de Licenças) as UC_REL_LICENCAS
+  ' Gestão de Clientes
+  package "Gestão de Clientes" {
+    usecase (Cadastrar Cliente) as UC12
+    usecase (Consultar Cliente) as UC13
+  }
+
+  ' Gestão de Vendedores
+  package "Gestão de Vendedores" {
+    usecase (Cadastrar Vendedor) as UC14
+    usecase (Consultar Vendedor) as UC15
+  }
+
+  ' Relatórios
+  package "Relatórios" {
+    usecase (Gerar Relatório de Ativos) as UC16
+    usecase (Gerar Relatório de Manutenção) as UC17
+
+    ' Extensões opcionais
+    usecase (Filtrar por Departamento) as UC22
+    usecase (Exportar PDF) as UC23
   }
 }
 
-UsuárioAdmnistrador -- UC_AUTENTICAR
-UsuárioAdmnistrador -- UC_CADASTRAR_ATIVO
-UsuárioAdmnistrador -- UC_CONSULTAR_ATIVO
-UsuárioAdmnistrador -- UC_ATUALIZAR_ATIVO
-UsuárioAdmnistrador -- UC_EXCLUIR_ATIVO
-UsuárioAdmnistrador -- UC_ASSOCIAR_ATIVO_DEP
-UsuárioAdmnistrador -- UC_CADASTRAR_LICENCA
-UsuárioAdmnistrador -- UC_CONSULTAR_LICENCA
-UsuárioAdmnistrador -- UC_ATUALIZAR_LICENCA
-UsuárioAdmnistrador -- UC_EXCLUIR_LICENCA
-UsuárioAdmnistrador -- UC_AGENDAR_MANUTENCAO
-UsuárioAdmnistrador -- UC_CONCLUIR_MANUTENCAO
-UsuárioAdmnistrador -- UC_CONSULTAR_HIST_MANUTENCAO
-UsuárioAdmnistrador -- UC_ATUALIZAR_STATUS_MANUTENCAO
-UsuárioAdmnistrador -- UC_GERENCIAR_CATEGORIAS
-UsuárioAdmnistrador -- UC_GERENCIAR_FORNECEDORES
-UsuárioAdmnistrador -- UC_GERENCIAR_PRESTADORES
-UsuárioAdmnistrador -- UC_GERENCIAR_DEPARTAMENTOS
-UsuárioAdmnistrador -- UC_GERENCIAR_SETORES
-UsuárioAdmnistrador -- UC_GERENCIAR_EMPRESAS
-UsuárioAdmnistrador -- UC_GERENCIAR_USUARIOS
-UsuárioAdmnistrador -- UC_GERENCIAR_PESSOAS
-UsuárioAdmnistrador -- UC_REL_ATIVOS
-UsuárioAdmnistrador -- UC_REL_MANUTENCOES
-UsuárioAdmnistrador -- UC_REL_LICENCAS
+' Relações do Administrador
+Admin --> UC1
+Admin --> UC2
+Admin --> UC3
+Admin --> UC4
+Admin --> UC5
+Admin --> UC6
+Admin --> UC7
+Admin --> UC8
+Admin --> UC9
+Admin --> UC10
+Admin --> UC11
+Admin --> UC12
+Admin --> UC13
+Admin --> UC14
+Admin --> UC15
+Admin --> UC16
+Admin --> UC17
 
-UsuárioPadrão  -- UC_AUTENTICAR
-UsuárioPadrão  -- UC_CONSULTAR_ATIVO
-UsuárioPadrão  -- UC_CONSULTAR_HIST_MANUTENCAO
-UsuárioPadrão  -- UC_REL_ATIVOS
+' Relações do Usuário Padrão
+User --> UC1
+User --> UC3
+User --> UC7
+User --> UC9
+User --> UC11
+User --> UC13
+User --> UC15
 
-UC_CADASTRAR_ATIVO .> UC_AUTENTICAR : <<include>>
-UC_ATUALIZAR_ATIVO .> UC_AUTENTICAR : <<include>>
-UC_EXCLUIR_ATIVO .> UC_AUTENTICAR : <<include>>
-UC_ASSOCIAR_ATIVO_DEP .> UC_AUTENTICAR : <<include>>
-UC_CADASTRAR_LICENCA .> UC_AUTENTICAR : <<include>>
-UC_ATUALIZAR_LICENCA .> UC_AUTENTICAR : <<include>>
-UC_EXCLUIR_LICENCA .> UC_AUTENTICAR : <<include>>
-UC_AGENDAR_MANUTENCAO .> UC_AUTENTICAR : <<include>>
-UC_CONCLUIR_MANUTENCAO .> UC_AUTENTICAR : <<include>>
-UC_ATUALIZAR_STATUS_MANUTENCAO .> UC_AUTENTICAR : <<include>>
-UC_GERENCIAR_CATEGORIAS .> UC_AUTENTICAR : <<include>>
-UC_GERENCIAR_FORNECEDORES .> UC_AUTENTICAR : <<include>>
-UC_GERENCIAR_PRESTADORES .> UC_AUTENTICAR : <<include>>
-UC_GERENCIAR_DEPARTAMENTOS .> UC_AUTENTICAR : <<include>>
-UC_GERENCIAR_SETORES .> UC_AUTENTICAR : <<include>>
-UC_GERENCIAR_EMPRESAS .> UC_AUTENTICAR : <<include>>
-UC_GERENCIAR_USUARIOS .> UC_AUTENTICAR : <<include>>
-UC_GERENCIAR_PESSOAS .> UC_AUTENTICAR : <<include>>
-UC_REL_ATIVOS .> UC_AUTENTICAR : <<include>>
-UC_REL_MANUTENCOES .> UC_AUTENTICAR : <<include>>
-UC_REL_LICENCAS .> UC_AUTENTICAR : <<include>>
-UC_CONSULTAR_ATIVO .> UC_AUTENTICAR : <<include>>
-UC_CONSULTAR_LICENCA .> UC_AUTENTICAR : <<include>>
-UC_CONSULTAR_HIST_MANUTENCAO .> UC_AUTENTICAR : <<include>>
+' Includes (obrigatórios)
+UC2 --> UC18 : <<include>>
+UC2 --> UC19 : <<include>>
+UC2 --> UC20 : <<include>>
+UC2 --> UC21 : <<include>>
 
-UC_CONSULTAR_ATIVO <. UC_CADASTRAR_ATIVO : <<extends>>
-UC_CONSULTAR_ATIVO <. UC_ATUALIZAR_ATIVO : <<extends>>
-UC_CONSULTAR_ATIVO <. UC_EXCLUIR_ATIVO : <<extends>>
-UC_CONSULTAR_ATIVO <. UC_ASSOCIAR_ATIVO_DEP : <<extends>>
+' Extends (opcionais)
+UC16 --> UC22 : <<extend>>
+UC16 --> UC23 : <<extend>>
 
-UC_CONSULTAR_LICENCA <. UC_CADASTRAR_LICENCA : <<extends>>
-UC_CONSULTAR_LICENCA <. UC_ATUALIZAR_LICENCA : <<extends>>
-UC_CONSULTAR_LICENCA <. UC_EXCLUIR_LICENCA : <<extends>>
-
-UC_CONSULTAR_HIST_MANUTENCAO <. UC_AGENDAR_MANUTENCAO : <<extends>>
-UC_CONSULTAR_HIST_MANUTENCAO <. UC_CONCLUIR_MANUTENCAO : <<extends>>
-UC_CONSULTAR_HIST_MANUTENCAO <. UC_ATUALIZAR_STATUS_MANUTENCAO : <<extends>>
-
-@enduml
+@endumlGerar 
