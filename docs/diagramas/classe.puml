@@ -66,40 +66,20 @@ class Garantia {
   + listarGarantias(): List<Garantia>
 }
 
-class Fornecedor {
+class Vendedor {
   + id: int
-  + razao_social: String
-  + nome_fantasia: String
-  + nr_cnpj: String
-  + nr_telefone: String
-  + ds_email: String
-  + ds_endereco: String
-  + nr_endereco: int
-  + ds_bairro: String
-  + ds_municipio: String
-  + sg_estado: String
   + status: String
   --
-  + adicionarFornecedor(fornecedor: Fornecedor): void
-  + alterarFornecedor(fornecedor: Fornecedor): void
-  + atualizarStatusFornecedor(id: int): void
-  + excluirFornecedor(id: int): void
-  + consultarFornecedor(id: int): Fornecedor
-  + listarFornecedores(): List<Fornecedor>
+  + adicionarVendedor(vendedor: Vendedor): void
+  + alterarVendedor(vendedor: Vendedor): void
+  + atualizarStatusVendedor(id: int): void
+  + excluirVendedor(id: int): void
+  + consultarVendedor(id: int): Vendedor
+  + listarVendedores(): List<Vendedor>
 }
 
 class Prestador {
   + id: int
-  + razao_social: String
-  + nome_fantasia: String
-  + nr_cnpj: String
-  + nr_telefone: String
-  + ds_email: String
-  + ds_endereco: String
-  + nr_endereco: int
-  + ds_bairro: String
-  + ds_municipio: String
-  + sg_estado: String
   + status: String
   --
   + adicionarPrestador(prestador: Prestador): void
@@ -211,15 +191,42 @@ class Pessoa {
   + listarPessoas(): list<Pessoa>
 }
 
+class PessoaJuridica {
+  + id: int
+  + razao_social: String
+  + nome_fantasia: String
+  + nr_cnpj: String
+  + nr_telefone: String
+  + ds_email: String
+  + ds_endereco: String
+  + nr_endereco: int
+  + ds_bairro: String
+  + ds_municipio: String
+  + sg_estado: String
+  --
+  + adicionarPessoaJuridica(pj: PessoaJuridica): void
+  + alterarPessoaJuridica(pj: PessoaJuridica): void
+  + excluirPessoaJuridica(id: int): void
+  + consultarPessoaJuridica(id: int): PessoaJuridica
+  + listarPessoasJuridicas(): List<PessoaJuridica>
+}
+
 Ativo "1..*" o-- "1" Categoria : possui
-Ativo "1..*" o-- "1" Fornecedor : fornecido por
 Ativo "1" o-- "0..1" Garantia : possui
 Ativo "1" o-- "*" Manutencao : registra
 Ativo "1..*" o-- "1" Departamento : alocado em
+Ativo "1..*" o-- "1" Vendedor : adquirido de
 Departamento "1..*" o-- "1" Setor : alocado em
 Setor "1..*" o-- "1" Empresa : alocado em
 Manutencao "1" o-- "1" Prestador : realizada por
-Licenca "1..*" o-- "1" Fornecedor : fornecida por
+Licenca "1..*" o-- "1" Vendedor : fornecida por
 Usuario "1" o-- "1" Pessoa : é
 
+Prestador "1" o-- "0..1" Pessoa : é pessoa física
+Prestador "1" o-- "0..1" PessoaJuridica : é pessoa jurídica
+
+Vendedor "1" o-- "0..1" Pessoa : é pessoa física
+Vendedor "1" o-- "0..1" PessoaJuridica : é pessoa jurídica
+
 @enduml
+
