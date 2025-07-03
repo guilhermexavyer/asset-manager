@@ -1,106 +1,177 @@
-@startuml caso_uso_completo
+@startuml caso_uso
 
 left to right direction
 
-actor "Administrador" as Admin
-actor "Usuário Padrão" as User
+actor Administrador
+actor Operador
 
-rectangle "Sistema de Monitoramento de Ativos" {
+rectangle "Sistema de Gerenciamento de Ativos" {
 
-  ' Autenticação
-  usecase (Autenticar Usuário) as UC1
+  usecase (Gerenciar Usuários) as UC_USUARIO
+  usecase (Registrar Usuário) as UC_REG_USUARIO
+  usecase (Atualizar Usuário) as UC_ATZ_USUARIO
+  usecase (Consultar Usuário) as UC_CONS_USUARIO
+  usecase (Excluir Usuário) as UC_EXC_USUARIO
 
-  ' Gestão de Ativos
-  package "Gestão de Ativos" {
-    usecase (Cadastrar Ativo) as UC2
-    usecase (Consultar Ativo) as UC3
-    usecase (Editar Ativo) as UC4
-    usecase (Excluir Ativo) as UC5
+  usecase (Gerenciar Ativos) as UC_ATIVO
+  usecase (Registrar Ativo) as UC_REG_ATIVO
+  usecase (Atualizar Ativo) as UC_ATZ_ATIVO
+  usecase (Consultar Ativo) as UC_CONS_ATIVO
+  usecase (Excluir Ativo) as UC_EXC_ATIVO
+  usecase (Agendar Manutenção) as UC_AG_MANUTENCAO
 
-    ' Casos incluídos no cadastro de ativo
-    usecase (Selecionar Categoria) as UC18
-    usecase (Selecionar Departamento) as UC19
-    usecase (Selecionar Fornecedor) as UC20
-    usecase (Selecionar Vendedor) as UC21
-  }
+  usecase (Gerenciar Manutenções) as UC_MANUTENCAO
+  usecase (Registrar Manutenção) as UC_REG_MANUTENCAO
+  usecase (Atualizar Manutenção) as UC_ATZ_MANUTENCAO
+  usecase (Consultar Manutenção) as UC_CONS_MANUTENCAO
+  usecase (Excluir Manutenção) as UC_EXC_MANUTENCAO
 
-  ' Gestão de Categorias
-  package "Gestão de Categorias" {
-    usecase (Cadastrar Categoria) as UC6
-    usecase (Consultar Categoria) as UC7
-  }
+  usecase (Gerenciar Categorias de Ativo) as UC_CAT_ATIVO
+  usecase (Registrar Categoria de Ativo) as UC_REG_CAT_ATIVO
+  usecase (Atualizar Categoria de Ativo) as UC_ATZ_CAT_ATIVO
+  usecase (Consultar Categoria de Ativo) as UC_CONS_CAT_ATIVO
+  usecase (Excluir Categoria de Ativo) as UC_EXC_CAT_ATIVO
 
-  ' Gestão de Fornecedores
-  package "Gestão de Fornecedores" {
-    usecase (Cadastrar Fornecedor) as UC8
-    usecase (Consultar Fornecedor) as UC9
-  }
+  usecase (Gerenciar Localizações) as UC_LOCALIZACAO
+  usecase (Registrar Localização) as UC_REG_LOCALIZACAO
+  usecase (Atualizar Localização) as UC_ATZ_LOCALIZACAO
+  usecase (Consultar Localização) as UC_CONS_LOCALIZACAO
+  usecase (Excluir Localização) as UC_EXC_LOCALIZACAO
 
-  ' Gestão de Departamentos
-  package "Gestão de Departamentos" {
-    usecase (Cadastrar Departamento) as UC10
-    usecase (Consultar Departamento) as UC11
-  }
+  usecase (Gerenciar Domínios) as UC_DOMINIO
+  usecase (Registrar Domínio) as UC_REG_DOMINIO
+  usecase (Atualizar Domínio) as UC_ATZ_DOMINIO
+  usecase (Consultar Domínio) as UC_CONS_DOMINIO
+  usecase (Excluir Domínio) as UC_EXC_DOMINIO
 
-  ' Gestão de Clientes
-  package "Gestão de Clientes" {
-    usecase (Cadastrar Cliente) as UC12
-    usecase (Consultar Cliente) as UC13
-  }
+  usecase (Gerenciar Licenças) as UC_LICENCA
+  usecase (Registrar Licença) as UC_REG_LICENCA
+  usecase (Atualizar Licença) as UC_ATZ_LICENCA
+  usecase (Consultar Licença) as UC_CONS_LICENCA
+  usecase (Excluir Licença) as UC_EXC_LICENCA
 
-  ' Gestão de Vendedores
-  package "Gestão de Vendedores" {
-    usecase (Cadastrar Vendedor) as UC14
-    usecase (Consultar Vendedor) as UC15
-  }
+  usecase (Gerenciar Categorias de Licença) as UC_CAT_LICENCA
+  usecase (Registrar Categoria de Licença) as UC_REG_CAT_LICENCA
+  usecase (Atualizar Categoria de Licença) as UC_ATZ_CAT_LICENCA
+  usecase (Consultar Categoria de Licença) as UC_CONS_CAT_LICENCA
+  usecase (Excluir Categoria de Licença) as UC_EXC_CAT_LICENCA
 
-  ' Relatórios
-  package "Relatórios" {
-    usecase (Gerar Relatório de Ativos) as UC16
-    usecase (Gerar Relatório de Manutenção) as UC17
+  usecase (Gerenciar Pessoas Físicas) as UC_PESSOA_FISICA
+  usecase (Registrar Pessoa Física) as UC_REG_PESSOA_FISICA
+  usecase (Atualizar Pessoa Física) as UC_ATZ_PESSOA_FISICA
+  usecase (Consultar Pessoa Física) as UC_CONS_PESSOA_FISICA
+  usecase (Excluir Pessoa Física) as UC_EXC_PESSOA_FISICA
 
-    ' Extensões opcionais
-    usecase (Filtrar por Departamento) as UC22
-    usecase (Exportar PDF) as UC23
-  }
+  usecase (Gerenciar Pessoas Jurídicas) as UC_PESSOA_JURIDICA
+  usecase (Registrar Pessoa Jurídica) as UC_REG_PESSOA_JURIDICA
+  usecase (Atualizar Pessoa Jurídica) as UC_ATZ_PESSOA_JURIDICA
+  usecase (Consultar Pessoa Jurídica) as UC_CONS_PESSOA_JURIDICA
+  usecase (Excluir Pessoa Jurídica) as UC_EXC_PESSOA_JURIDICA
+
+  usecase (Gerenciar Fornecedores) as UC_FORNECEDOR
+  usecase (Registrar Fornecedor) as UC_REG_FORNECEDOR
+  usecase (Atualizar Fornecedor) as UC_ATZ_FORNECEDOR
+  usecase (Consultar Fornecedor) as UC_CONS_FORNECEDOR
+  usecase (Excluir Fornecedor) as UC_EXC_FORNECEDOR
+
+  usecase (Gerenciar Prestadores de Serviço) as UC_PRESTADOR
+  usecase (Registrar Prestador de Serviço) as UC_REG_PRESTADOR
+  usecase (Atualizar Prestador de Serviço) as UC_ATZ_PRESTADOR
+  usecase (Consultar Prestador de Serviço) as UC_CONS_PRESTADOR
+  usecase (Excluir Prestador de Serviço) as UC_EXC_PRESTADOR
+
 }
 
-' Relações do Administrador
-Admin --> UC1
-Admin --> UC2
-Admin --> UC3
-Admin --> UC4
-Admin --> UC5
-Admin --> UC6
-Admin --> UC7
-Admin --> UC8
-Admin --> UC9
-Admin --> UC10
-Admin --> UC11
-Admin --> UC12
-Admin --> UC13
-Admin --> UC14
-Admin --> UC15
-Admin --> UC16
-Admin --> UC17
+Administrador -- UC_USUARIO
+Administrador -- UC_ATIVO
+Administrador -- UC_MANUTENCAO
+Administrador -- UC_CAT_ATIVO
+Administrador -- UC_LOCALIZACAO
+Administrador -- UC_DOMINIO
+Administrador -- UC_LICENCA
+Administrador -- UC_CAT_LICENCA
+Administrador -- UC_PESSOA_FISICA
+Administrador -- UC_PESSOA_JURIDICA
+Administrador -- UC_FORNECEDOR
+Administrador -- UC_PRESTADOR
 
-' Relações do Usuário Padrão
-User --> UC1
-User --> UC3
-User --> UC7
-User --> UC9
-User --> UC11
-User --> UC13
-User --> UC15
+Operador -- UC_ATIVO
+Operador -- UC_MANUTENCAO
+Operador -- UC_LICENCA
+Operador -- UC_CONS_USUARIO
+Operador -- UC_ATZ_USUARIO
+Operador -- UC_CONS_CAT_ATIVO
+Operador -- UC_CONS_LOCALIZACAO
+Operador -- UC_CONS_DOMINIO
+Operador -- UC_CONS_CAT_LICENCA
+Operador -- UC_CONS_PESSOA_FISICA
+Operador -- UC_CONS_PESSOA_JURIDICA
+Operador -- UC_CONS_FORNECEDOR
+Operador -- UC_CONS_PRESTADOR
 
-' Includes (obrigatórios)
-UC2 --> UC18 : <<include>>
-UC2 --> UC19 : <<include>>
-UC2 --> UC20 : <<include>>
-UC2 --> UC21 : <<include>>
+UC_USUARIO <|-- UC_REG_USUARIO
+UC_USUARIO <|-- UC_ATZ_USUARIO
+UC_USUARIO <|-- UC_CONS_USUARIO
+UC_USUARIO <|-- UC_EXC_USUARIO
 
-' Extends (opcionais)
-UC16 --> UC22 : <<extend>>
-UC16 --> UC23 : <<extend>>
+UC_ATIVO <|-- UC_REG_ATIVO
+UC_ATIVO <|-- UC_ATZ_ATIVO
+UC_ATIVO <|-- UC_CONS_ATIVO
+UC_ATIVO <|-- UC_EXC_ATIVO
+UC_ATIVO <|-- UC_AG_MANUTENCAO
 
-@endumlGerar 
+UC_MANUTENCAO <|-- UC_REG_MANUTENCAO
+UC_MANUTENCAO <|-- UC_ATZ_MANUTENCAO
+UC_MANUTENCAO <|-- UC_CONS_MANUTENCAO
+UC_MANUTENCAO <|-- UC_EXC_MANUTENCAO
+
+UC_CAT_ATIVO <|-- UC_REG_CAT_ATIVO
+UC_CAT_ATIVO <|-- UC_ATZ_CAT_ATIVO
+UC_CAT_ATIVO <|-- UC_CONS_CAT_ATIVO
+UC_CAT_ATIVO <|-- UC_EXC_CAT_ATIVO
+
+UC_LOCALIZACAO <|-- UC_REG_LOCALIZACAO
+UC_LOCALIZACAO <|-- UC_ATZ_LOCALIZACAO
+UC_LOCALIZACAO <|-- UC_CONS_LOCALIZACAO
+UC_LOCALIZACAO <|-- UC_EXC_LOCALIZACAO
+
+UC_DOMINIO <|-- UC_REG_DOMINIO
+UC_DOMINIO <|-- UC_ATZ_DOMINIO
+UC_DOMINIO <|-- UC_CONS_DOMINIO
+UC_DOMINIO <|-- UC_EXC_DOMINIO
+
+UC_LICENCA <|-- UC_REG_LICENCA
+UC_LICENCA <|-- UC_ATZ_LICENCA
+UC_LICENCA <|-- UC_CONS_LICENCA
+UC_LICENCA <|-- UC_EXC_LICENCA
+
+UC_CAT_LICENCA <|-- UC_REG_CAT_LICENCA
+UC_CAT_LICENCA <|-- UC_ATZ_CAT_LICENCA
+UC_CAT_LICENCA <|-- UC_CONS_CAT_LICENCA
+UC_CAT_LICENCA <|-- UC_EXC_CAT_LICENCA
+
+UC_PESSOA_FISICA <|-- UC_REG_PESSOA_FISICA
+UC_PESSOA_FISICA <|-- UC_ATZ_PESSOA_FISICA
+UC_PESSOA_FISICA <|-- UC_CONS_PESSOA_FISICA
+UC_PESSOA_FISICA <|-- UC_EXC_PESSOA_FISICA
+
+UC_PESSOA_JURIDICA <|-- UC_REG_PESSOA_JURIDICA
+UC_PESSOA_JURIDICA <|-- UC_ATZ_PESSOA_JURIDICA
+UC_PESSOA_JURIDICA <|-- UC_CONS_PESSOA_JURIDICA
+UC_PESSOA_JURIDICA <|-- UC_EXC_PESSOA_JURIDICA
+
+UC_FORNECEDOR <|-- UC_REG_FORNECEDOR
+UC_FORNECEDOR <|-- UC_ATZ_FORNECEDOR
+UC_FORNECEDOR <|-- UC_CONS_FORNECEDOR
+UC_FORNECEDOR <|-- UC_EXC_FORNECEDOR
+
+UC_PRESTADOR <|-- UC_REG_PRESTADOR
+UC_PRESTADOR <|-- UC_ATZ_PRESTADOR
+UC_PRESTADOR <|-- UC_CONS_PRESTADOR
+UC_PRESTADOR <|-- UC_EXC_PRESTADOR
+
+UC_AG_MANUTENCAO ..> UC_REG_MANUTENCAO : <<include>>
+
+UC_ATZ_USUARIO <. (Atualizar Próprio Perfil) : <<extend>>
+
+@enduml
