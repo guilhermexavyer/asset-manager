@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --cor-primaria: #232B47;
+    --cor-secundaria: #2D394F;
+    --cor-logo-1: #fff;
+    --cor-logo-2: #4F46E5;
+    --cor-sombra: rgba(0, 0, 0, 0.3);
+}
+
+body {
+    font-family: 'Ubuntu', 'Times New Roman', Times, serif;
+    background-color: var(--cor-primaria);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.container-login {
+    background-color: var(--cor-secundaria);
+    padding: 10px;
+    gap: 70px;
+    width: 300px;
+}
+
+.logo-secao {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+}
+
+.logo-img i {
+    color: var(--cor-logo-2);
+}
+
+.logo-texto-1 {
+    color: var(--cor-logo-1);
+    font-weight: 500;
+}
+
+.logo-texto-2 {
+    color: var(--cor-logo-2);
+    font-style: italic;
+    font-weight: 1000;
+}
+
+.container-login {
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 10px -5px var(--cor-sombra);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-campos {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-campos input {
+    font-size: 15px;
+    padding: 5px;
+    border: none;
+    outline: none;
+    background-color: var(--cor-primaria);
+    color: #fff;
+    font-family: 'Ubuntu';
+}
+
+.form-opcao a {
+    color: var(--cor-logo-1);
+    font-size: 12px;
+    text-decoration: none;
+}
+
+.form-opcao a:focus,
+.form-opcao a:hover {
+    text-decoration: underline;
+    outline: none;
+}
+
+.form-botao button {
+    width: 100%;
+    background-color: var(--cor-logo-2);
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    color: var(--cor-logo-1);
+    font-weight: 1000;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    outline: none;
+    transition: .2s;
+}
+
+.form-botao button:focus,
+.form-botao button:hover {
+    background-color: #413aca;
+}
