@@ -7,107 +7,133 @@
 }
 
 :root {
-    --cor-primaria: #232B47;
-    --cor-secundaria: #2D394F;
+    --cor-principal-1: #232B47;
+    --cor-principal-2: #2D394F;
     --cor-logo-1: #fff;
     --cor-logo-2: #4F46E5;
-    --cor-sombra: rgba(0, 0, 0, 0.3);
+    --cor-botao-1: #4F46E5;
+    --cor-botao-2: #413aca;
+    --cor-placeholder: #949494;
+    --cor-copyright: #151a2b;
+    --sombra-container: rgba(0, 0, 0, 0.3);
 }
 
 body {
+    background-color: var(--cor-principal-1);
     font-family: 'Ubuntu', 'Times New Roman', Times, serif;
-    background-color: var(--cor-primaria);
+    min-height: 100vh;
+
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 100vh;
+    
 }
 
 .container-login {
-    background-color: var(--cor-secundaria);
-    padding: 10px;
+    background-color: var(--cor-principal-2);
     gap: 70px;
-    width: 300px;
+    padding: 15px;
+    width: 400px;
 }
 
 .logo-secao {
+    font-size: 40px;
+
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    font-size: 40px;
+    justify-content: center;
 }
 
 .logo-img i {
     color: var(--cor-logo-2);
 }
 
+.logo-texto {
+    font-weight: bold;
+}
+
 .logo-texto-1 {
     color: var(--cor-logo-1);
-    font-weight: 500;
 }
 
 .logo-texto-2 {
     color: var(--cor-logo-2);
     font-style: italic;
-    font-weight: 1000;
 }
 
 .container-login {
+    box-shadow: 0 10px 10px -5px var(--sombra-container);
+
     display: flex;
     flex-direction: column;
-    box-shadow: 0 10px 10px -5px var(--cor-sombra);
 }
 
 form {
+    gap: 30px;
+
     display: flex;
     flex-direction: column;
-    gap: 15px;
 }
 
 .form-campos {
+    gap: 15px;
+
     display: flex;
     flex-direction: column;
-    gap: 15px;
 }
 
 .form-campos input {
-    font-size: 15px;
-    padding: 5px;
+    background-color: var(--cor-principal-1);
     border: none;
-    outline: none;
-    background-color: var(--cor-primaria);
     color: #fff;
     font-family: 'Ubuntu';
+    font-size: 15px;
+    outline: none;
+    padding: 7px;
+}
+
+.form-campos input:focus {
+    outline: 1px solid var(--cor-botao-1);
+}
+
+.form-campos input::placeholder {
+    color: var(--cor-placeholder);
 }
 
 .form-opcao a {
-    color: var(--cor-logo-1);
+    color: var(--cor-logo-2);
     font-size: 12px;
     text-decoration: none;
 }
 
 .form-opcao a:focus,
 .form-opcao a:hover {
-    text-decoration: underline;
     outline: none;
+    text-decoration: underline;
 }
 
 .form-botao button {
-    width: 100%;
-    background-color: var(--cor-logo-2);
     border: none;
-    padding: 5px;
-    cursor: pointer;
+    background-color: var(--cor-botao-1);
     color: var(--cor-logo-1);
+    cursor: pointer;
     font-weight: 1000;
     letter-spacing: 1px;
-    text-transform: uppercase;
     outline: none;
+    padding: 5px;
+    text-transform: uppercase;
     transition: .2s;
+    width: 100%;
 }
 
 .form-botao button:focus,
 .form-botao button:hover {
-    background-color: #413aca;
+    background-color: var(--cor-botao-2);
+}
+
+.form-copyright p {
+    color: var(--cor-copyright);
+    font-size: 12px;
+    text-align: center;
 }
