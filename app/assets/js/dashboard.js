@@ -1,72 +1,75 @@
 // Elementos do DOM
-const sidebar = document.getElementById('sidebar');
-const menuToggle = document.getElementById('menuToggle');
-const overlay = document.getElementById('overlay');
-const logoutBtn = document.getElementById('logoutBtn');
-const navLinks = document.querySelectorAll('.nav-link');
-const submenuLinks = document.querySelectorAll('.submenu-link');
-const hasSubmenuItems = document.querySelectorAll('.nav-item.has-submenu');
+const sidebarPrincipal = document.getElementById('sidebarPrincipal');
+const botaoMenuToggle = document.getElementById('botaoMenuToggle');
+const overlayMobile = document.getElementById('overlayMobile');
+const botaoLogout = document.getElementById('botaoLogout');
+const linksNavegacao = document.querySelectorAll('.link-navegacao');
+const linksSubmenu = document.querySelectorAll('.link-submenu');
+const itensComSubmenu = document.querySelectorAll('.item-navegacao.tem-submenu');
 
 // Estado da aplicação
-let isMobile = window.innerWidth <= 768;
-let sidebarCollapsed = false;
+let ehMobile = window.innerWidth <= 768;
+let sidebarColapsada = false;
 
 // Inicialização
 document.addEventListener('DOMContentLoaded', function() {
-    initializeApp();
-    setupEventListeners();
-    updateLayout();
+    inicializarAplicacao();
+    configurarEventListeners();
+    atualizarLayout();
 });
 
 // Configuração inicial da aplicação
-function initializeApp() {
+function inicializarAplicacao() {
     // Verificar se é mobile
-    checkMobileView();
+    verificarVisualizacaoMobile();
     
     // Configurar estado inicial do sidebar
-    if (isMobile) {
-        sidebar.classList.remove('active');
+    if (ehMobile) {
+        sidebarPrincipal.classList.remove('ativo');
     }
     
     // Adicionar animação de entrada aos cards
-    animateCards();
+    animarCards();
     
     // Configurar tooltips para itens com submenu
-    setupSubmenuTooltips();
+    configurarTooltipsSubmenu();
+    
+    // Carregar preferências do usuário
+    carregarPreferenciasUsuario();
 }
 
 // Configurar event listeners
-function setupEventListeners() {
+function configurarEventListeners() {
     // Toggle do menu
-    menuToggle.addEventListener('click', toggleSidebar);
+    botaoMenuToggle.addEventListener('click', alternarSidebar);
     
     // Overlay para fechar menu no mobile
-    overlay.addEventListener('click', closeSidebar);
+    overlayMobile.addEventListener('click', fecharSidebar);
     
     // Botão de logout
-    logoutBtn.addEventListener('click', handleLogout);
+    botaoLogout.addEventListener('click', manipularLogout);
     
     // Links de navegação principais
-    navLinks.forEach(link => {
-        link.addEventListener('click', handleNavigation);
+    linksNavegacao.forEach(link => {
+        link.addEventListener('click', manipularNavegacao);
     });
     
     // Links de submenu
-    submenuLinks.forEach(link => {
-        link.addEventListener('click', handleSubmenuNavigation);
+    linksSubmenu.forEach(link => {
+        link.addEventListener('click', manipularNavegacaoSubmenu);
     });
     
     // Itens com submenu
-    hasSubmenuItems.forEach(item => {
-        const mainLink = item.querySelector('.nav-link');
-        mainLink.addEventListener('click', handleSubmenuToggle);
+    itensComSubmenu.forEach(item => {
+        const linkPrincipal = item.querySelector('.link-navegacao');
+        linkPrincipal.addEventListener('click', manipularToggleSubmenu);
     });
     
     // Redimensionamento da janela
-    window.addEventListener('resize', handleResize);
+    window.addEventListener('resize', manipularRedimensionamento);
     
     // Teclas de atalho
-    document.addEventListener('keydown', handleKeyboard);
+    document.addEventListener('keydown', manipularTeclado);
     
     // Prevenir comportamento padrão dos links
     document.querySelectorAll('a[href^="#"]').forEach(link => {
@@ -77,70 +80,85 @@ function setupEventListeners() {
 }
 
 // Toggle do sidebar
-function toggleSidebar() {
-    if (isMobile) {
-        sidebar.classList.toggle('active');
-        overlay.classList.toggle('active');
-        document.body.style.overflow = sidebar.classList.contains('active') ? 'hidden' : '';
+function alternarSidebar() {
+    if (ehMobile) {
+        sidebarPrincipal.classList.toggle('ativo');
+        overlayMobile.classList.toggle('ativo');
+        document.body.style.overflow = sidebarPrincipal.classList.contains('ativo') ? 'hidden' : '';
     } else {
-        sidebarCollapsed = !sidebarCollapsed;
-        sidebar.classList.toggle('collapsed', sidebarCollapsed);
+        sidebarColapsada = !sidebarColapsada;
+        sidebarPrincipal.classList.toggle('colapsada', sidebarColapsada);
+        
+        // Fechar todos os submenus quando colapsar
+        if (sidebarColapsada) {
+            itensComSubmenu.forEach(item => {
+                item.classList.remove('aberto');
+            });
+        }
         
         // Salvar preferência no localStorage
-        localStorage.setItem('sidebarCollapsed', sidebarCollapsed);
+        localStorage.setItem('sidebarColapsada', sidebarColapsada);
     }
 }
 
 // Fechar sidebar
-function closeSidebar() {
-    if (isMobile) {
-        sidebar.classList.remove('active');
-        overlay.classList.remove('active');
+function fecharSidebar() {
+    if (ehMobile) {
+        sidebarPrincipal.classList.remove('ativo');
+        overlayMobile.classList.remove('ativo');
         document.body.style.overflow = '';
     }
 }
 
 // Verificar se é visualização mobile
-function checkMobileView() {
-    const wasMobile = isMobile;
-    isMobile = window.innerWidth <= 768;
+function verificarVisualizacaoMobile() {
+    const eraMobile = ehMobile;
+    ehMobile = window.innerWidth <= 768;
     
-    if (wasMobile !== isMobile) {
+    if (eraMobile !== ehMobile) {
         // Mudou de desktop para mobile ou vice-versa
-        if (isMobile) {
+        if (ehMobile) {
             // Mudou para mobile
-            sidebar.classList.remove('collapsed');
-            sidebar.classList.remove('active');
-            overlay.classList.remove('active');
+            sidebarPrincipal.classList.remove('colapsada');
+            sidebarPrincipal.classList.remove('ativo');
+            overlayMobile.classList.remove('ativo');
             document.body.style.overflow = '';
         } else {
             // Mudou para desktop
-            sidebar.classList.remove('active');
-            overlay.classList.remove('active');
+            sidebarPrincipal.classList.remove('ativo');
+            overlayMobile.classList.remove('ativo');
             document.body.style.overflow = '';
             
             // Restaurar estado do sidebar colapsado
-            const savedState = localStorage.getItem('sidebarCollapsed');
-            if (savedState === 'true') {
-                sidebarCollapsed = true;
-                sidebar.classList.add('collapsed');
+            const estadoSalvo = localStorage.getItem('sidebarColapsada');
+            if (estadoSalvo === 'true') {
+                sidebarColapsada = true;
+                sidebarPrincipal.classList.add('colapsada');
             }
         }
     }
 }
 
 // Manipular redimensionamento
-function handleResize() {
-    checkMobileView();
-    updateLayout();
+function manipularRedimensionamento() {
+    const eraMobile = ehMobile;
+    verificarVisualizacaoMobile();
+    atualizarLayout();
+    
+    // Se mudou de mobile para desktop, fechar submenus se sidebar estiver colapsado
+    if (eraMobile && !ehMobile && sidebarColapsada) {
+        itensComSubmenu.forEach(item => {
+            item.classList.remove('aberto');
+        });
+    }
 }
 
 // Atualizar layout
-function updateLayout() {
+function atualizarLayout() {
     // Ajustar altura dos gráficos se necessário
-    const chartContainers = document.querySelectorAll('.chart-container');
-    chartContainers.forEach(container => {
-        const placeholder = container.querySelector('.chart-placeholder');
+    const containersGrafico = document.querySelectorAll('.container-grafico');
+    containersGrafico.forEach(container => {
+        const placeholder = container.querySelector('.placeholder-grafico');
         if (placeholder && window.innerWidth < 768) {
             placeholder.style.height = '150px';
         } else if (placeholder) {
@@ -149,88 +167,177 @@ function updateLayout() {
     });
 }
 
-// Manipular navegação
-function handleNavigation(e) {
+// Manipular navegação principal
+function manipularNavegacao(e) {
+    const itemNavegacao = e.currentTarget.closest('.item-navegacao');
+    
+    // Se o item tem submenu, apenas toggle (não navegar)
+    if (itemNavegacao.classList.contains('tem-submenu')) {
+        return; // O manipularToggleSubmenu já foi chamado
+    }
+    
     e.preventDefault();
     
-    // Remover classe active de todos os itens
-    document.querySelectorAll('.nav-item').forEach(item => {
-        item.classList.remove('active');
+    // Remover classe ativo de todos os itens
+    document.querySelectorAll('.item-navegacao').forEach(item => {
+        item.classList.remove('ativo');
+    });
+    document.querySelectorAll('.item-submenu').forEach(item => {
+        item.classList.remove('ativo');
     });
     
-    // Adicionar classe active ao item clicado
-    const navItem = e.currentTarget.closest('.nav-item');
-    navItem.classList.add('active');
+    // Fechar todos os submenus
+    itensComSubmenu.forEach(item => {
+        item.classList.remove('aberto');
+    });
+    
+    // Adicionar classe ativo ao item clicado
+    itemNavegacao.classList.add('ativo');
     
     // Obter o destino da navegação
     const href = e.currentTarget.getAttribute('href');
-    const pageName = href.replace('#', '');
+    const nomePagina = href.replace('#', '');
     
     // Atualizar título da página
-    updatePageTitle(pageName);
+    atualizarTituloPagina(nomePagina);
     
     // Simular carregamento de conteúdo
-    loadPageContent(pageName);
+    carregarConteudoPagina(nomePagina);
     
     // Fechar sidebar no mobile após navegação
-    if (isMobile) {
-        closeSidebar();
+    if (ehMobile) {
+        fecharSidebar();
     }
     
     // Adicionar feedback visual
-    showNavigationFeedback(e.currentTarget);
+    mostrarFeedbackNavegacao(e.currentTarget);
+}
+
+// Toggle de submenu
+function manipularToggleSubmenu(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    const itemNavegacao = e.currentTarget.closest('.item-navegacao.tem-submenu');
+    const estaAberto = itemNavegacao.classList.contains('aberto');
+    
+    // Se o sidebar estiver colapsado no desktop, não abrir submenu
+    if (sidebarColapsada && !ehMobile) {
+        return;
+    }
+    
+    // Fechar outros submenus
+    itensComSubmenu.forEach(item => {
+        if (item !== itemNavegacao) {
+            item.classList.remove('aberto');
+        }
+    });
+    
+    // Toggle do submenu atual
+    itemNavegacao.classList.toggle('aberto', !estaAberto);
+    
+    // Adicionar feedback visual
+    mostrarFeedbackNavegacao(e.currentTarget);
+}
+
+// Navegação em submenu
+function manipularNavegacaoSubmenu(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    // Remover classe ativo de todos os itens
+    document.querySelectorAll('.item-navegacao').forEach(item => {
+        item.classList.remove('ativo');
+    });
+    document.querySelectorAll('.item-submenu').forEach(item => {
+        item.classList.remove('ativo');
+    });
+    
+    // Adicionar classe ativo ao item clicado
+    const itemSubmenu = e.currentTarget.closest('.item-submenu');
+    const itemNavegacaoPai = e.currentTarget.closest('.item-navegacao.tem-submenu');
+    
+    itemSubmenu.classList.add('ativo');
+    itemNavegacaoPai.classList.add('ativo');
+    
+    // Obter o destino da navegação
+    const href = e.currentTarget.getAttribute('href');
+    const nomePagina = href.replace('#', '');
+    
+    // Atualizar título da página
+    atualizarTituloPagina(nomePagina);
+    
+    // Simular carregamento de conteúdo
+    carregarConteudoPagina(nomePagina);
+    
+    // Fechar sidebar no mobile após navegação
+    if (ehMobile) {
+        fecharSidebar();
+    }
+    
+    // Adicionar feedback visual
+    mostrarFeedbackNavegacao(e.currentTarget);
 }
 
 // Atualizar título da página
-function updatePageTitle(pageName) {
-    const pageTitle = document.querySelector('.page-title');
-    const titles = {
+function atualizarTituloPagina(nomePagina) {
+    const tituloPagina = document.querySelector('.titulo-pagina');
+    const titulos = {
         'dashboard': 'Dashboard',
-        'ativos': 'Gestão de Ativos',
-        'categorias': 'Categorias',
+        'patrimonio': 'Patrimônio',
+        'ativos': 'Ativos',
+        'licencas': 'Licenças',
+        'dominios': 'Domínios',
+        'cadastros': 'Cadastros Gerais',
+        'categoria-ativos': 'Categoria de Ativos',
+        'categoria-licencas': 'Categoria de Licenças',
+        'fornecedor': 'Fornecedor',
         'localizacao': 'Localização',
+        'pessoa-fisica': 'Pessoa Física',
+        'pessoa-juridica': 'Pessoa Jurídica',
+        'prestador-servico': 'Prestador de Serviço',
+        'usuarios': 'Usuários',
         'manutencao': 'Manutenção',
         'relatorios': 'Relatórios',
-        'usuarios': 'Usuários',
         'configuracoes': 'Configurações'
     };
     
-    pageTitle.textContent = titles[pageName] || 'Dashboard';
+    tituloPagina.textContent = titulos[nomePagina] || 'Dashboard';
 }
 
 // Simular carregamento de conteúdo
-function loadPageContent(pageName) {
-    const contentArea = document.querySelector('.content-area');
+function carregarConteudoPagina(nomePagina) {
+    const areaConteudo = document.querySelector('.area-conteudo');
     
     // Adicionar efeito de loading
-    contentArea.style.opacity = '0.7';
-    contentArea.style.pointerEvents = 'none';
+    areaConteudo.style.opacity = '0.7';
+    areaConteudo.style.pointerEvents = 'none';
     
     // Simular delay de carregamento
     setTimeout(() => {
-        contentArea.style.opacity = '1';
-        contentArea.style.pointerEvents = 'auto';
+        areaConteudo.style.opacity = '1';
+        areaConteudo.style.pointerEvents = 'auto';
         
         // Aqui você poderia carregar conteúdo específico para cada página
-        console.log(`Carregando conteúdo para: ${pageName}`);
+        console.log(`Carregando conteúdo para: ${nomePagina}`);
     }, 300);
 }
 
 // Feedback visual de navegação
-function showNavigationFeedback(element) {
-    element.style.transform = 'scale(0.95)';
+function mostrarFeedbackNavegacao(elemento) {
+    elemento.style.transform = 'scale(0.95)';
     setTimeout(() => {
-        element.style.transform = 'scale(1)';
+        elemento.style.transform = 'scale(1)';
     }, 150);
 }
 
 // Manipular logout
-function handleLogout() {
+function manipularLogout() {
     // Confirmar logout
     if (confirm('Tem certeza que deseja sair do sistema?')) {
         // Adicionar efeito de loading
-        logoutBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i><span class="logout-text">Saindo...</span>';
-        logoutBtn.disabled = true;
+        botaoLogout.innerHTML = '<i class="fas fa-spinner fa-spin"></i><span class="texto-logout">Saindo...</span>';
+        botaoLogout.disabled = true;
         
         // Simular processo de logout
         setTimeout(() => {
@@ -238,96 +345,117 @@ function handleLogout() {
             localStorage.clear();
             sessionStorage.clear();
             
-            // Redirecionar para página de login (simulado)
-            alert('Logout realizado com sucesso!');
-            
-            // Restaurar botão
-            logoutBtn.innerHTML = '<i class="fas fa-sign-out-alt"></i><span class="logout-text">Sair</span>';
-            logoutBtn.disabled = false;
-            
-            // Em uma aplicação real, você redirecionaria para a página de login
-            // window.location.href = '/login';
-        }, 1500);
+            // Redirecionar para página de login
+            window.location.href = 'login.html';
+        }, 1);
     }
 }
 
 // Manipular teclas de atalho
-function handleKeyboard(e) {
-    // Esc para fechar sidebar no mobile
-    if (e.key === 'Escape' && isMobile) {
-        closeSidebar();
+function manipularTeclado(e) {
+    // Esc para fechar sidebar no mobile ou submenus
+    if (e.key === 'Escape') {
+        if (ehMobile) {
+            fecharSidebar();
+        } else {
+            fecharTodosSubmenus();
+        }
     }
     
-    // Ctrl + B para toggle do sidebar
-    if (e.ctrlKey && e.key === 'b') {
+    // Ctrl + X para toggle do sidebar
+    if (e.ctrlKey && e.key === 'x') {
         e.preventDefault();
-        toggleSidebar();
+        alternarSidebar();
     }
     
     // Ctrl + L para logout
     if (e.ctrlKey && e.key === 'l') {
         e.preventDefault();
-        handleLogout();
+        manipularLogout();
     }
 }
 
 // Animação dos cards
-function animateCards() {
-    const cards = document.querySelectorAll('.card');
+function animarCards() {
+    const cards = document.querySelectorAll('.card-resumo');
     cards.forEach((card, index) => {
         card.style.animationDelay = `${index * 0.1}s`;
     });
 }
 
+// Configurar tooltips para itens com submenu quando colapsado
+function configurarTooltipsSubmenu() {
+    itensComSubmenu.forEach(item => {
+        const textoNavegacao = item.querySelector('.texto-navegacao').textContent;
+        item.setAttribute('data-tooltip', textoNavegacao);
+    });
+}
+
+// Função para fechar todos os submenus
+function fecharTodosSubmenus() {
+    itensComSubmenu.forEach(item => {
+        item.classList.remove('aberto');
+    });
+}
+
+// Carregar preferências do usuário
+function carregarPreferenciasUsuario() {
+    const estadoSalvo = localStorage.getItem('sidebarColapsada');
+    if (estadoSalvo === 'true' && !ehMobile) {
+        sidebarColapsada = true;
+        sidebarPrincipal.classList.add('colapsada');
+    }
+}
+
 // Utilitários para dados dinâmicos
-function updateCardData(cardIndex, value) {
-    const cards = document.querySelectorAll('.card-number');
-    if (cards[cardIndex]) {
-        cards[cardIndex].textContent = value;
+function atualizarDadosCard(indiceCard, valor) {
+    const cards = document.querySelectorAll('.numero-card');
+    if (cards[indiceCard]) {
+        cards[indiceCard].textContent = valor;
     }
 }
 
 // Função para adicionar novos itens à tabela
-function addTableRow(data) {
-    const tbody = document.querySelector('.data-table tbody');
-    const row = document.createElement('tr');
+function adicionarLinhaTabela(dados) {
+    const tbody = document.querySelector('.tabela-dados tbody');
+    const linha = document.createElement('tr');
     
-    row.innerHTML = `
-        <td>${data.id}</td>
-        <td>${data.nome}</td>
-        <td>${data.categoria}</td>
-        <td><span class="status ${data.status.toLowerCase()}">${data.statusText}</span></td>
-        <td>${data.data}</td>
+    linha.innerHTML = `
+        <td>${dados.id}</td>
+        <td>${dados.nome}</td>
+        <td>${dados.categoria}</td>
+        <td><span class="status-item ${dados.status.toLowerCase()}">${dados.textoStatus}</span></td>
+        <td>${dados.data}</td>
     `;
     
     // Adicionar animação de entrada
-    row.style.opacity = '0';
-    row.style.transform = 'translateY(20px)';
-    tbody.appendChild(row);
+    linha.style.opacity = '0';
+    linha.style.transform = 'translateY(20px)';
+    tbody.appendChild(linha);
     
     // Animar entrada
     setTimeout(() => {
-        row.style.transition = 'all 0.3s ease';
-        row.style.opacity = '1';
-        row.style.transform = 'translateY(0)';
+        linha.style.transition = 'all 0.3s ease';
+        linha.style.opacity = '1';
+        linha.style.transform = 'translateY(0)';
     }, 100);
 }
 
 // Função para mostrar notificações
-function showNotification(message, type = 'info') {
-    const notification = document.createElement('div');
-    notification.className = `notification notification-${type}`;
-    notification.innerHTML = `
-        <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
-        <span>${message}</span>
+function mostrarNotificacao(mensagem, tipo = 'info') {
+    const notificacao = document.createElement('div');
+    notificacao.className = `notificacao notificacao-${tipo}`;
+    notificacao.innerHTML = `
+        <i class="fas fa-${tipo === 'sucesso' ? 'check-circle' : tipo === 'erro' ? 'exclamation-circle' : 'info-circle'}"></i>
+        <span>${mensagem}</span>
     `;
     
     // Estilos da notificação
-    notification.style.cssText = `
+    notificacao.style.cssText = `
         position: fixed;
         top: 20px;
         right: 20px;
-        background: ${type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#2563eb'};
+        background: ${tipo === 'sucesso' ? '#10b981' : tipo === 'erro' ? '#ef4444' : '#4F46E5'};
         color: white;
         padding: 1rem 1.5rem;
         border-radius: 0.5rem;
@@ -338,300 +466,93 @@ function showNotification(message, type = 'info') {
         gap: 0.5rem;
         transform: translateX(100%);
         transition: transform 0.3s ease;
+        font-family: 'Ubuntu', sans-serif;
     `;
     
-    document.body.appendChild(notification);
+    document.body.appendChild(notificacao);
     
     // Animar entrada
     setTimeout(() => {
-        notification.style.transform = 'translateX(0)';
+        notificacao.style.transform = 'translateX(0)';
     }, 100);
     
     // Remover após 3 segundos
     setTimeout(() => {
-        notification.style.transform = 'translateX(100%)';
+        notificacao.style.transform = 'translateX(100%)';
         setTimeout(() => {
-            document.body.removeChild(notification);
+            if (document.body.contains(notificacao)) {
+                document.body.removeChild(notificacao);
+            }
         }, 300);
     }, 3000);
 }
 
 // Função para atualizar dados em tempo real (simulado)
-function simulateRealTimeUpdates() {
+function simularAtualizacoesTempoReal() {
     setInterval(() => {
         // Simular atualização de dados
-        const randomCard = Math.floor(Math.random() * 4);
-        const currentValue = document.querySelectorAll('.card-number')[randomCard]?.textContent;
+        const cardAleatorio = Math.floor(Math.random() * 4);
+        const valorAtual = document.querySelectorAll('.numero-card')[cardAleatorio]?.textContent;
         
-        if (currentValue && currentValue.includes(',')) {
-            const numericValue = parseInt(currentValue.replace(/[^\d]/g, ''));
-            const variation = Math.floor(Math.random() * 10) - 5; // -5 a +5
-            const newValue = numericValue + variation;
+        if (valorAtual && valorAtual.includes(',')) {
+            const valorNumerico = parseInt(valorAtual.replace(/[^\d]/g, ''));
+            const variacao = Math.floor(Math.random() * 10) - 5; // -5 a +5
+            const novoValor = valorNumerico + variacao;
             
-            if (randomCard < 3) {
-                updateCardData(randomCard, newValue.toLocaleString('pt-BR'));
+            if (cardAleatorio < 3) {
+                atualizarDadosCard(cardAleatorio, novoValor.toLocaleString('pt-BR'));
             }
         }
     }, 30000); // Atualizar a cada 30 segundos
 }
 
 // Inicializar atualizações em tempo real
-setTimeout(simulateRealTimeUpdates, 5000);
+setTimeout(simularAtualizacoesTempoReal, 5000);
 
 // Função para exportar dados (exemplo)
-function exportData(format = 'csv') {
-    showNotification(`Exportando dados em formato ${format.toUpperCase()}...`, 'info');
+function exportarDados(formato = 'csv') {
+    mostrarNotificacao(`Exportando dados em formato ${formato.toUpperCase()}...`, 'info');
     
     setTimeout(() => {
-        showNotification('Dados exportados com sucesso!', 'success');
+        mostrarNotificacao('Dados exportados com sucesso!', 'sucesso');
     }, 2000);
 }
 
 // Adicionar tooltips aos ícones quando o sidebar estiver colapsado
-function updateTooltips() {
-    const navLinks = document.querySelectorAll('.nav-link');
+function atualizarTooltips() {
+    const linksNavegacao = document.querySelectorAll('.link-navegacao');
     
-    navLinks.forEach(link => {
-        const text = link.querySelector('.nav-text')?.textContent;
-        if (text) {
-            link.setAttribute('title', text);
+    linksNavegacao.forEach(link => {
+        const texto = link.querySelector('.texto-navegacao')?.textContent;
+        if (texto) {
+            link.setAttribute('title', texto);
         }
     });
 }
 
 // Inicializar tooltips
-updateTooltips();
+atualizarTooltips();
 
 // Função para busca (placeholder)
-function initializeSearch() {
+function inicializarBusca() {
     // Esta função pode ser expandida para incluir funcionalidade de busca
     console.log('Sistema de busca inicializado');
 }
 
-// Carregar preferências do usuário
-function loadUserPreferences() {
-    const savedCollapsed = localStorage.getItem('sidebarCollapsed');
-    if (savedCollapsed === 'true' && !isMobile) {
-        sidebarCollapsed = true;
-        sidebar.classList.add('collapsed');
-    }
+// Inicializar busca
+inicializarBusca();
+
+// Função para demonstrar funcionalidades
+function demonstrarFuncionalidades() {
+    setTimeout(() => {
+        mostrarNotificacao('Sistema carregado com sucesso!', 'sucesso');
+    }, 1000);
+    
+    setTimeout(() => {
+        mostrarNotificacao('Use Ctrl+X para alternar o menu lateral', 'info');
+    }, 2000);
 }
 
-// Carregar preferências na inicialização
-loadUserPreferences();
-
-
-// Funções para Submenus
-
-// Toggle de submenu
-function handleSubmenuToggle(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    
-    const navItem = e.currentTarget.closest('.nav-item.has-submenu');
-    const isOpen = navItem.classList.contains('open');
-    
-    // Se o sidebar estiver colapsado no desktop, não abrir submenu
-    if (sidebarCollapsed && !isMobile) {
-        return;
-    }
-    
-    // Fechar outros submenus
-    hasSubmenuItems.forEach(item => {
-        if (item !== navItem) {
-            item.classList.remove('open');
-        }
-    });
-    
-    // Toggle do submenu atual
-    navItem.classList.toggle('open', !isOpen);
-    
-    // Adicionar feedback visual
-    showNavigationFeedback(e.currentTarget);
-}
-
-// Navegação em submenu
-function handleSubmenuNavigation(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    
-    // Remover classe active de todos os itens
-    document.querySelectorAll('.nav-item').forEach(item => {
-        item.classList.remove('active');
-    });
-    document.querySelectorAll('.submenu-item').forEach(item => {
-        item.classList.remove('active');
-    });
-    
-    // Adicionar classe active ao item clicado
-    const submenuItem = e.currentTarget.closest('.submenu-item');
-    const parentNavItem = e.currentTarget.closest('.nav-item.has-submenu');
-    
-    submenuItem.classList.add('active');
-    parentNavItem.classList.add('active');
-    
-    // Obter o destino da navegação
-    const href = e.currentTarget.getAttribute('href');
-    const pageName = href.replace('#', '');
-    
-    // Atualizar título da página
-    updatePageTitle(pageName);
-    
-    // Simular carregamento de conteúdo
-    loadPageContent(pageName);
-    
-    // Fechar sidebar no mobile após navegação
-    if (isMobile) {
-        closeSidebar();
-    }
-    
-    // Adicionar feedback visual
-    showNavigationFeedback(e.currentTarget);
-}
-
-// Configurar tooltips para itens com submenu quando colapsado
-function setupSubmenuTooltips() {
-    hasSubmenuItems.forEach(item => {
-        const navText = item.querySelector('.nav-text').textContent;
-        item.setAttribute('data-tooltip', navText);
-    });
-}
-
-// Atualizar função de navegação principal para lidar com submenus
-function handleNavigation(e) {
-    const navItem = e.currentTarget.closest('.nav-item');
-    
-    // Se o item tem submenu, apenas toggle (não navegar)
-    if (navItem.classList.contains('has-submenu')) {
-        return; // O handleSubmenuToggle já foi chamado
-    }
-    
-    e.preventDefault();
-    
-    // Remover classe active de todos os itens
-    document.querySelectorAll('.nav-item').forEach(item => {
-        item.classList.remove('active');
-    });
-    document.querySelectorAll('.submenu-item').forEach(item => {
-        item.classList.remove('active');
-    });
-    
-    // Fechar todos os submenus
-    hasSubmenuItems.forEach(item => {
-        item.classList.remove('open');
-    });
-    
-    // Adicionar classe active ao item clicado
-    navItem.classList.add('active');
-    
-    // Obter o destino da navegação
-    const href = e.currentTarget.getAttribute('href');
-    const pageName = href.replace('#', '');
-    
-    // Atualizar título da página
-    updatePageTitle(pageName);
-    
-    // Simular carregamento de conteúdo
-    loadPageContent(pageName);
-    
-    // Fechar sidebar no mobile após navegação
-    if (isMobile) {
-        closeSidebar();
-    }
-    
-    // Adicionar feedback visual
-    showNavigationFeedback(e.currentTarget);
-}
-
-// Atualizar função updatePageTitle para incluir novos títulos
-function updatePageTitle(pageName) {
-    const pageTitle = document.querySelector('.page-title');
-    const titles = {
-        'dashboard': 'Dashboard',
-        'patrimonio': 'Patrimônio',
-        'ativos': 'Ativos',
-        'licencas': 'Licenças',
-        'dominios': 'Domínios',
-        'cadastros': 'Cadastros Gerais',
-        'categoria': 'Categoria',
-        'localizacao': 'Localização',
-        'pessoa-fisica': 'Pessoa Física',
-        'pessoa-juridica': 'Pessoa Jurídica',
-        'usuarios': 'Usuários',
-        'prestador-servico': 'Prestador de Serviço',
-        'fornecedor': 'Fornecedor',
-        'manutencao': 'Manutenção',
-        'relatorios': 'Relatórios',
-        'configuracoes': 'Configurações'
-    };
-    
-    pageTitle.textContent = titles[pageName] || 'Dashboard';
-}
-
-// Fechar submenus quando sidebar é colapsado
-function toggleSidebar() {
-    if (isMobile) {
-        sidebar.classList.toggle('active');
-        overlay.classList.toggle('active');
-        document.body.style.overflow = sidebar.classList.contains('active') ? 'hidden' : '';
-    } else {
-        sidebarCollapsed = !sidebarCollapsed;
-        sidebar.classList.toggle('collapsed', sidebarCollapsed);
-        
-        // Fechar todos os submenus quando colapsar
-        if (sidebarCollapsed) {
-            hasSubmenuItems.forEach(item => {
-                item.classList.remove('open');
-            });
-        }
-        
-        // Salvar preferência no localStorage
-        localStorage.setItem('sidebarCollapsed', sidebarCollapsed);
-    }
-}
-
-// Atualizar função de redimensionamento para lidar com submenus
-function handleResize() {
-    const wasMobile = isMobile;
-    checkMobileView();
-    updateLayout();
-    
-    // Se mudou de mobile para desktop, fechar submenus se sidebar estiver colapsado
-    if (wasMobile && !isMobile && sidebarCollapsed) {
-        hasSubmenuItems.forEach(item => {
-            item.classList.remove('open');
-        });
-    }
-}
-
-// Função para fechar todos os submenus
-function closeAllSubmenus() {
-    hasSubmenuItems.forEach(item => {
-        item.classList.remove('open');
-    });
-}
-
-// Adicionar ao handleKeyboard para fechar submenus com Esc
-function handleKeyboard(e) {
-    // Esc para fechar sidebar no mobile ou submenus
-    if (e.key === 'Escape') {
-        if (isMobile) {
-            closeSidebar();
-        } else {
-            closeAllSubmenus();
-        }
-    }
-    
-    // Ctrl + B para toggle do sidebar
-    if (e.ctrlKey && e.key === 'b') {
-        e.preventDefault();
-        toggleSidebar();
-    }
-    
-    // Ctrl + L para logout
-    if (e.ctrlKey && e.key === 'l') {
-        e.preventDefault();
-        handleLogout();
-    }
-}
+// Demonstrar funcionalidades na inicialização
+demonstrarFuncionalidades();
 
