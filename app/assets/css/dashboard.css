@@ -28,7 +28,7 @@
     --cor-borda: #e2e8f0;
     --cor-sucesso: #10b981;
     --cor-aviso: #f59e0b;
-    --cor-descarte: #007bc2;
+    --cor-descartado: #007bc2;
     --cor-perigo: #ef4444;
     
     /* Dimensões */
@@ -446,7 +446,7 @@ body {
     color: var(--cor-aviso);
 }
 
-.status-item.descarte {
+.status-item.descartado {
     background: rgba(11, 120, 245, 0.1);
     color: var(--cor-);
 }
