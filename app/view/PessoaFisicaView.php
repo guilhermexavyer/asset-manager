@@ -32,7 +32,7 @@
             <li class="item-navegacao ativo">
                 <a href="#dashboard" class="link-navegacao">
                     <i class="fas fa-tachometer-alt icone-navegacao"></i>
-                    <span class="texto-navegacao">Dashboard</span>
+                    <span class="texto-navegacao">Pessoa Física</span>
                 </a>
             </li>
             <li class="item-navegacao tem-submenu" data-tooltip="Patrimônio">
