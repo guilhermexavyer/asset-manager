@@ -30,7 +30,7 @@
         <!-- Menu de Navegação -->
         <ul class="menu-navegacao">
             <li class="item-navegacao ativo">
-                <a href="#dashboard" class="link-navegacao">
+                <a href="dashboard.html" class="link-navegacao">
                     <i class="fas fa-tachometer-alt icone-navegacao"></i>
                     <span class="texto-navegacao">Dashboard</span>
                 </a>

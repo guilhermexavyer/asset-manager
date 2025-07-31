@@ -50,6 +50,7 @@ function configurarEventListeners() {
     botaoLogout.addEventListener('click', manipularLogout);
     
     // Links de navegação principais
+    /*
     linksNavegacao.forEach(link => {
         link.addEventListener('click', manipularNavegacao);
     });
@@ -58,7 +59,8 @@ function configurarEventListeners() {
     linksSubmenu.forEach(link => {
         link.addEventListener('click', manipularNavegacaoSubmenu);
     });
-    
+    */
+
     // Itens com submenu
     itensComSubmenu.forEach(item => {
         const linkPrincipal = item.querySelector('.link-navegacao');
