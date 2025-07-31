@@ -542,7 +542,7 @@ function inicializarBusca() {
 // Inicializar busca
 inicializarBusca();
 
-// Função para demonstrar funcionalidades
+/* Função para demonstrar funcionalidades
 function demonstrarFuncionalidades() {
     setTimeout(() => {
         mostrarNotificacao('Sistema carregado com sucesso!', 'sucesso');
@@ -551,7 +551,7 @@ function demonstrarFuncionalidades() {
     setTimeout(() => {
         mostrarNotificacao('Use Ctrl+X para alternar o menu lateral', 'info');
     }, 2000);
-}
+} */
 
 // Demonstrar funcionalidades na inicialização
 demonstrarFuncionalidades();
