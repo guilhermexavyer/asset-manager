@@ -11,8 +11,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>patrimon.io</title>
     <link rel="icon" href="../assets/images/icone.ico" type="image/x-icon">
-    <link rel="stylesheet" href="../assets/css/dashboard.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/geral.css">
+    <link rel="stylesheet" href="../assets/css/menu_lateral.css">
+    <link rel="stylesheet" href="../assets/css/formulario_registro.css">
+    <link rel="stylesheet" href="../assets/css/tabela_registros.css">
 </head>
 <body>
     <!-- Menu Lateral Principal -->
@@ -160,7 +163,7 @@
             </button>
             <h1 class="titulo-pagina">Pessoa Física</h1>
             <div class="informacoes-usuario">
-                <span class="nome-usuario">Nome da Pessoa</span>
+                <span class="nome-usuario">Nome do Usuário</span>
                 <div class="avatar-usuario">
                     <i class="fa-solid fa-user"></i>
                 </div>
@@ -169,12 +172,11 @@
 
         <!-- Área de Conteúdo -->
         <div class="area-conteudo">
-            <!-- Cards de cadastro -->
-
-            <div class="cards-cadastro">
-                <div class="card-cadastro">
+            <!-- Cards Principais -->
+            <div class="cards-principais">
+                <!-- Card de Cadastro -->
+                <div class="cards">
                     <h3>Cadastro</h3>
-
                     <form method="POST" action="../controller/PessoaController.php">
                         <div class="linha-campos">
                             <div class="campo">
@@ -344,7 +346,8 @@
                     </form>    
                 </div>
 
-                <div class="card-cadastro">
+                <!-- Card de Registros -->
+                <div class="cards">
                     <h3>Registros</h3>
                     <table>
                         <!-- Cabeçalho da tabela -->
@@ -424,10 +427,9 @@
         </div>
     </main>
 
-    <script src="../assets/js/dashboard.js"></script>
     <script src="https://unpkg.com/imask"></script>
     <script src="../assets/js/mascaras.js"></script>
-
+    <script src="../assets/js/menu_lateral.js"></script>
 </body>
 </html>
 

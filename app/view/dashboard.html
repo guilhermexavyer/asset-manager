@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>patrimon.io</title>
     <link rel="icon" href="../assets/images/icone.ico" type="image/x-icon">
-    <link rel="stylesheet" href="../assets/css/dashboard.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/geral.css">
+    <link rel="stylesheet" href="../assets/css/menu_lateral.css">
 </head>
 <body>
     <!-- Menu Lateral Principal -->
@@ -63,54 +64,14 @@
                     <i class="fas fa-chevron-down seta-submenu"></i>
                 </a>
                 <ul class="submenu">
-                    <li class="item-submenu">
-                        <a href="#categoria-ativos" class="link-submenu">
-                            <i class="fas fa-tags icone-submenu"></i>
-                            <span class="texto-submenu">Categoria de Ativos</span>
-                        </a>
-                    </li>
-                    <li class="item-submenu">
-                        <a href="#categoria-licencas" class="link-submenu">
-                            <i class="fas fa-tags icone-submenu"></i>
-                            <span class="texto-submenu">Categoria de Licenças</span>
-                        </a>
-                    </li>
-                    <li class="item-submenu">
-                        <a href="#fornecedor" class="link-submenu">
-                            <i class="fas fa-truck icone-submenu"></i>
-                            <span class="texto-submenu">Fornecedor</span>
-                        </a>
-                    </li>
-                    <li class="item-submenu">
-                        <a href="#localizacao" class="link-submenu">
-                            <i class="fas fa-map-marker-alt icone-submenu"></i>
-                            <span class="texto-submenu">Localização</span>
-                        </a>
-                    </li>
-                    <li class="item-submenu">
-                        <a href="PessoaFisicaView.php" class="link-submenu">
-                            <i class="fas fa-user icone-submenu"></i>
-                            <span class="texto-submenu">Pessoa Física</span>
-                        </a>
-                    </li>
-                    <li class="item-submenu">
-                        <a href="#pessoa-juridica" class="link-submenu">
-                            <i class="fas fa-building icone-submenu"></i>
-                            <span class="texto-submenu">Pessoa Jurídica</span>
-                        </a>
-                    </li>
-                    <li class="item-submenu">
-                        <a href="#prestador-servico" class="link-submenu">
-                            <i class="fas fa-handshake icone-submenu"></i>
-                            <span class="texto-submenu">Prestador de Serviço</span>
-                        </a>
-                    </li>
-                    <li class="item-submenu">
-                        <a href="#usuarios" class="link-submenu">
-                            <i class="fas fa-users icone-submenu"></i>
-                            <span class="texto-submenu">Usuários</span>
-                        </a>
-                    </li>
+                    <li class="item-submenu"><a href="#categoria-ativos" class="link-submenu"><i class="fas fa-tags icone-submenu"></i><span class="texto-submenu">Categoria de Ativos</span></a></li>
+                    <li class="item-submenu"><a href="#categoria-licencas" class="link-submenu"><i class="fas fa-tags icone-submenu"></i><span class="texto-submenu">Categoria de Licenças</span></a></li>
+                    <li class="item-submenu"><a href="#fornecedor" class="link-submenu"><i class="fas fa-truck icone-submenu"></i><span class="texto-submenu">Fornecedor</span></a></li>
+                    <li class="item-submenu"><a href="#localizacao" class="link-submenu"><i class="fas fa-map-marker-alt icone-submenu"></i><span class="texto-submenu">Localização</span></a></li>
+                    <li class="item-submenu"><a href="#pessoa-fisica" class="link-submenu"><i class="fas fa-user icone-submenu"></i><span class="texto-submenu">Pessoa Física</span></a></li>
+                    <li class="item-submenu"><a href="#pessoa-juridica" class="link-submenu"><i class="fas fa-building icone-submenu"></i><span class="texto-submenu">Pessoa Jurídica</span></a></li>
+                    <li class="item-submenu"><a href="#prestador-servico" class="link-submenu"><i class="fas fa-handshake icone-submenu"></i><span class="texto-submenu">Prestador de Serviço</span></a></li>
+                    <li class="item-submenu"><a href="#usuarios" class="link-submenu"><i class="fas fa-users icone-submenu"></i><span class="texto-submenu">Usuários</span></a></li>
                 </ul>
             </li>
             <li class="item-navegacao">
@@ -154,7 +115,7 @@
             </button>
             <h1 class="titulo-pagina">Dashboard</h1>
             <div class="informacoes-usuario">
-                <span class="nome-usuario">Nome da Pessoa</span>
+                <span class="nome-usuario">Nome do Usuário</span>
                 <div class="avatar-usuario">
                     <i class="fa-solid fa-user"></i>
                 </div>
@@ -202,71 +163,10 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Grid do Dashboard -->
-            <div class="grid-dashboard">
-                <div class="container-tabela">
-                    <h3 class="titulo-secao">Últimos Ativos Cadastrados</h3>
-                    <table class="tabela-dados">
-                        <thead>
-                            <tr>
-                                <th>Patrimônio</th>
-                                <th>Nome</th>
-                                <th>Categoria</th>
-                                <th>Localização</th>
-                                <th>Status</th>
-                                <th>Data de aquisição</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>ATV000001</td>
-                                <td>Notebook Dell</td>
-                                <td>Informática</td>
-                                <td>T.I.</td>
-                                <td><span class="status-item ativo">Ativo</span></td>
-                                <td>15/12/2024</td>
-                            </tr>
-                            <tr>
-                                <td>ATV000002</td>
-                                <td>Brother HL-L5212DW</td>
-                                <td>Equipamentos</td>
-                                <td>Financeiro</td>
-                                <td><span class="status-item manutencao">Manutenção</span></td>
-                                <td>14/12/2024</td>
-                            </tr>
-                            <tr>
-                                <td>ATV000003</td>
-                                <td>Mesa de Escritório</td>
-                                <td>Mobiliário</td>
-                                <td>R.H.</td>
-                                <td><span class="status-item ativo">Ativo</span></td>
-                                <td>13/12/2024</td>
-                            </tr>
-                            <tr>
-                                <td>ATV000004</td>
-                                <td>Cadeira Ergonômica</td>
-                                <td>Mobiliário</td>
-                                <td>Gerência</td>
-                                <td><span class="status-item descartado">Descartado</span></td>
-                                <td>12/12/2024</td>
-                            </tr>
-                            <tr>
-                                <td>ATV000005</td>
-                                <td>Monitor Samsung</td>
-                                <td>Informática</td>
-                                <td>Financeiro</td>
-                                <td><span class="status-item inativo">Inativo</span></td>
-                                <td>11/12/2024</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
         </div>
     </main>
 
-    <script src="../assets/js/dashboard.js"></script>
+    <script src="../assets/js/menu_lateral.js"></script>
 </body>
 </html>
 

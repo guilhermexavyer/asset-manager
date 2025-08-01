@@ -1,0 +1,55 @@
+
+.cards table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.cards table,
+.cards th,
+.cards td {
+    border: 1px solid #bbb;
+    font-size: 12px;
+}
+
+.cards th {
+    background-color: #ddd;
+    font-weight: 500;
+    color: #666;
+}
+
+.cards th,
+.cards td {
+    padding: 5px;
+    text-align: left;
+}
+
+
+.cards td .acoes {
+    display: flex;
+    justify-content: space-between;
+    border: none;
+}
+
+.cards tbody .status {
+    text-align: center;
+}
+
+.cards tbody .status span {
+    cursor: pointer;
+}
+
+.cards tbody .acoes i {
+    color: #999;
+    font-size: 13px;
+    transition: .2s;
+}
+
+.cards tbody .acoes i:hover {
+    color: #413aca;
+}
+
+.cards tbody .acoes {
+    border: none;
+    display: flex;
+    justify-content: space-between;
+}

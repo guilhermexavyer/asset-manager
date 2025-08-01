@@ -1,0 +1,236 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+/* Reset e Configurações Globais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Variáveis CSS - Paleta de cores do login */
+:root {
+    /* Cores principais do login */
+    --cor-principal-1: #232B47;
+    --cor-principal-2: #2D394F;
+    --cor-logo-1: #fff;
+    --cor-logo-2: #4F46E5;
+    --cor-botao-1: #4F46E5;
+    --cor-botao-2: #413aca;
+    --cor-placeholder: #949494;
+    --cor-copyright: #151a2b;
+    --sombra-container: rgba(0, 0, 0, 0.3);
+    
+    /* Cores derivadas para o dashboard */
+    --cor-fundo-principal: #eeeeee;
+    --cor-card-fundo: #ffffff;
+    --cor-texto-primario: #1e293b;
+    --cor-texto-secundario: #64748b;
+    --cor-borda: #e2e8f0;
+    --cor-sucesso: #10b981;
+    --cor-aviso: #f59e0b;
+    --cor-descartado: #007bc2;
+    --cor-perigo: #ef4444;
+    
+    /* Dimensões */
+    --largura-sidebar: 280px;
+    --largura-sidebar-colapsada: 70px;
+    
+    /* Sombras */
+    --sombra-leve: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    --sombra-media: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    
+    /* Transições */
+    --transicao-padrao: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Configurações do Body */
+body {
+    font-family: 'Ubuntu', 'Times New Roman', Times, serif;
+    background-color: var(--cor-fundo-principal);
+    color: var(--cor-texto-primario);
+    line-height: 1.6;
+}
+
+/* Cabeçalho */
+.cabecalho-dashboard {
+    background: var(--cor-card-fundo);
+    padding: 1rem 2rem;
+    border-bottom: 1px solid var(--cor-borda);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: var(--sombra-leve);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.titulo-pagina {
+    flex: 1;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--cor-texto-primario);
+}
+
+.informacoes-usuario {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.nome-usuario {
+    font-weight: 500;
+    color: var(--cor-texto-secundario);
+}
+
+.avatar-usuario {
+    width: 2.5rem;
+    height: 2.5rem;
+    background: var(--cor-botao-1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--cor-logo-1);
+    font-weight: 600;
+}
+
+/* Área de Conteúdo */
+.area-conteudo {
+    padding: 2rem;
+}
+
+/* Cards de Resumo */
+.cards-resumo {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.card-resumo {
+    background: var(--cor-card-fundo);
+    padding: 1.5rem;
+    
+    box-shadow: var(--sombra-leve);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: var(--transicao-padrao);
+    border: 1px solid var(--cor-borda);
+}
+
+.card-resumo:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--sombra-media);
+}
+
+.icone-card {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    color: var(--cor-logo-1);
+}
+
+.card-resumo:nth-child(1) .icone-card {
+    background: linear-gradient(135deg, var(--cor-botao-1), var(--cor-botao-2));
+}
+
+.card-resumo:nth-child(2) .icone-card {
+    background: linear-gradient(135deg, var(--cor-sucesso), #059669);
+}
+
+.card-resumo:nth-child(3) .icone-card {
+    background: linear-gradient(135deg, var(--cor-aviso), #d97706);
+}
+
+.card-resumo:nth-child(4) .icone-card {
+    background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+}
+
+.card-resumo {
+    animation: deslizarEntrada 0.6s ease-out;
+}
+
+.card-resumo:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.card-resumo:nth-child(3) {
+    animation-delay: 0.2s;
+}
+
+.card-resumo:nth-child(4) {
+    animation-delay: 0.3s;
+}
+
+.conteudo-card h3 {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--cor-texto-secundario);
+    margin-bottom: 0.25rem;
+}
+
+.numero-card {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--cor-texto-primario);
+}
+
+
+/* Responsividade */
+@media (max-width: 1024px) {
+    .cards-resumo {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    
+    .conteudo-principal {
+        margin-left: 0;
+    }
+    
+    .cabecalho-dashboard {
+        padding: 1rem;
+    }
+    
+    .area-conteudo {
+        padding: 1rem;
+    }
+    
+    .cards-resumo {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .nome-usuario {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .card-resumo {
+        padding: 1rem;
+    }
+    
+    .numero-card {
+        font-size: 1.5rem;
+    }
+}
+
+/* Animações */
+@keyframes deslizarEntrada {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
